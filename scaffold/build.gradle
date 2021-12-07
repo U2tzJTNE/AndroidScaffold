@@ -1,13 +1,6 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
     id 'maven-publish'
-}
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
 }
 android {
     compileSdk rootProject.ext.android.compileSdk
@@ -17,8 +10,11 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         consumerProguardFiles "consumer-rules.pro"
+        ndk {
+            abiFilters rootProject.ext.abiFilters
+        }
+        multiDexEnabled true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -29,9 +25,6 @@ android {
         sourceCompatibility JAVA_VERSION
         targetCompatibility JAVA_VERSION
     }
-    kotlinOptions {
-        jvmTarget = JAVA_VERSION
-    }
     viewBinding {
         enabled = true
     }
@@ -41,9 +34,6 @@ android {
 }
 
 dependencies {
-    //kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
-    api 'androidx.core:core-ktx:1.7.0'
     //Android通用支持库
     api 'androidx.appcompat:appcompat:1.4.0'
     api 'androidx.constraintlayout:constraintlayout:2.1.2'
@@ -60,8 +50,6 @@ dependencies {
     api 'com.github.U2tzJTNE:NoHttp:1.1.12'
     //图片加载
     api 'com.github.bumptech.glide:glide:4.12.0'
-    //ARouter 组件跳转
-    api 'com.alibaba:arouter-api:1.5.1'
     //下载框架
     api 'com.arialyy.aria:core:3.8.15'
     //腾讯MMKV
@@ -80,7 +68,6 @@ dependencies {
     //圆角textview
     api 'com.ruffian.library:RTextView:1.0.11'
 }
-
 
 afterEvaluate {
     publishing {

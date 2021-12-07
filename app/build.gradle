@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
 }
 
 static def releaseTime() {
@@ -15,6 +16,10 @@ android {
         targetSdk rootProject.ext.android.targetSdk
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        ndk {
+            abiFilters rootProject.ext.abiFilters
+        }
+        multiDexEnabled true
     }
 
     //修改生成的apk名字
@@ -55,6 +60,9 @@ android {
         sourceCompatibility JAVA_VERSION
         targetCompatibility JAVA_VERSION
     }
+    kotlinOptions {
+        jvmTarget = JAVA_VERSION
+    }
     viewBinding {
         enabled = true
     }
@@ -62,4 +70,7 @@ android {
 
 dependencies {
     api project(path: ':scaffold')
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    implementation 'androidx.core:core-ktx:1.7.0'
 }
