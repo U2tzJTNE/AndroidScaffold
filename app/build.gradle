@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
 }
 
 static def releaseTime() {
@@ -60,9 +59,6 @@ android {
         sourceCompatibility JAVA_VERSION
         targetCompatibility JAVA_VERSION
     }
-    kotlinOptions {
-        jvmTarget = JAVA_VERSION
-    }
     viewBinding {
         enabled = true
     }
@@ -70,7 +66,4 @@ android {
 
 dependencies {
     api project(path: ':scaffold')
-    //kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
-    implementation 'androidx.core:core-ktx:1.7.0'
 }
