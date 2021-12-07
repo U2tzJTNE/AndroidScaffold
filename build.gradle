@@ -1,0 +1,17 @@
+apply from: "config.gradle"
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$GRADLE_VERSION"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

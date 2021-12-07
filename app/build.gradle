@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.application'
+}
+
+static def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdk rootProject.ext.android.compileSdk
+
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+    }
+
+    //修改生成的apk名字
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFileName != null && outputFileName.endsWith('.apk')) {
+                output.outputFileName = new File(rootProject.ext.appName + "_${variant.buildType.name}_v${defaultConfig.versionName}_u${defaultConfig.versionCode}_${releaseTime()}.apk")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../AndroidScaffold.jks')
+            storePassword "AndroidScaffold"
+            keyAlias "AndroidScaffold"
+            keyPassword "AndroidScaffold"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JAVA_VERSION
+        targetCompatibility JAVA_VERSION
+    }
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    api project(path: ':scaffold')
+}

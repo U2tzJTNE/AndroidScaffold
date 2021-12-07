@@ -1,0 +1,35 @@
+project.ext {
+
+    //ndk支持的平台版本
+    appName = "AndroidScaffold"
+
+    android = [
+            //用于编译的SDK版本
+            compileSdk   : 31,
+            //应用ID
+            applicationId: "com.u2tzjtne.android.scaffold",
+            //最低支持Android版本
+            minSdk       : 21,
+            //目标版本
+            targetSdk    : 28,
+            //应用程序版本号
+            versionCode  : 1,
+            versionName  : "0.0.1"
+    ]
+
+    //开启后 模块可以单独运行调试
+    isApplication = false
+
+    sourceSets = {
+        main {
+            if (isApplication) {
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
+    //ndk支持的平台版本
+    abiFilters = "armeabi-v7a"
+}

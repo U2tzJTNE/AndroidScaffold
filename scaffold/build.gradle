@@ -1,0 +1,96 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+android {
+    compileSdk rootProject.ext.android.compileSdk
+    defaultConfig {
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JAVA_VERSION
+        targetCompatibility JAVA_VERSION
+    }
+    kotlinOptions {
+        jvmTarget = JAVA_VERSION
+    }
+    viewBinding {
+        enabled = true
+    }
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+dependencies {
+    //kotlin
+    api "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    api 'androidx.core:core-ktx:1.7.0'
+    //Android通用支持库
+    api 'androidx.appcompat:appcompat:1.4.0'
+    api 'androidx.constraintlayout:constraintlayout:2.1.2'
+    api 'com.google.android.material:material:1.4.0'
+    //json解析
+    api 'com.google.code.gson:gson:2.8.9'
+    //权限请求
+    api 'com.yanzhenjie:permission:2.0.3'
+    //屏幕适配
+    api 'me.jessyan:autosize:1.2.1'
+    //日志框架
+    implementation 'com.orhanobut:logger:2.2.0'
+    //网络框架
+    api 'com.github.U2tzJTNE:NoHttp:1.1.12'
+    //图片加载
+    api 'com.github.bumptech.glide:glide:4.12.0'
+    //ARouter 组件跳转
+    api 'com.alibaba:arouter-api:1.5.1'
+    //下载框架
+    api 'com.arialyy.aria:core:3.8.15'
+    //腾讯MMKV
+    implementation 'com.tencent:mmkv-static:1.2.10'
+    //二维码处理
+    api 'com.google.zxing:android-core:3.3.0'
+    api 'com.google.zxing:core:3.4.1'
+    //视频缓存
+    implementation 'com.danikula:videocache:2.7.1'
+    //倒计时
+    api 'in.xiandan:count-down-timer:1.0.3'
+    //RecyclerView适配器
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    //圆形ImageView
+    api 'de.hdodenhof:circleimageview:3.1.0'
+    //圆角textview
+    api 'com.ruffian.library:RTextView:1.0.11'
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.u2tzjtne'
+                artifactId = 'AndroidScaffold'
+                version = '0.0.1'
+            }
+        }
+    }
+}
