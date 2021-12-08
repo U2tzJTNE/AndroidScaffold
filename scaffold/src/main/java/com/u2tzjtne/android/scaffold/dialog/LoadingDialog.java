@@ -11,7 +11,7 @@ import com.u2tzjtne.android.scaffold.R;
 import java.util.Objects;
 
 /**
- * @author yxinmt@gmail.com
+ * @author u2tzjtne@gmail.com
  */
 public class LoadingDialog extends Dialog {
 

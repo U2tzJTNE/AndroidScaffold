@@ -1,5 +1,6 @@
 package com.u2tzjtne.android.scaffold.util;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +16,6 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.u2tzjtne.android.scaffold.base.BaseApp;
-import com.u2tzjtne.android.scaffold.util.LogUtils;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
@@ -64,6 +64,7 @@ public class AppUtils {
     /**
      * 生成设备唯一标识：IMEI、AndroidId、macAddress 三者拼接再 MD5
      */
+    @SuppressLint("HardwareIds")
     public static String getDeviceId() {
 
         Context context = BaseApp.getContext();

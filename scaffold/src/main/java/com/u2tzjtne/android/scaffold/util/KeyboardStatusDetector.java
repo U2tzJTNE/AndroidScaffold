@@ -45,7 +45,6 @@ public class KeyboardStatusDetector {
                 }
             }
         });
-
         return this;
     }
 
@@ -57,5 +56,4 @@ public class KeyboardStatusDetector {
     public interface KeyboardVisibilityListener {
         void onVisibilityChanged(boolean keyboardVisible);
     }
-
 }

@@ -132,13 +132,7 @@ public final class QRCodeUtils {
         }
         //生成二维码图片的格式，使用ARGB_8888
         createQRCodeImage(content, width, (success, bitmap, e) -> {
-            if (imageView != null) {
-                imageView.post(() -> {
-                    if (imageView != null) {
-                        imageView.setImageBitmap(bitmap);
-                    }
-                });
-            }
+            imageView.post(() -> imageView.setImageBitmap(bitmap));
         });
     }
 

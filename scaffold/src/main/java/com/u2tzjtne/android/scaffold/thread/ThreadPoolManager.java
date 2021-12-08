@@ -1,5 +1,7 @@
 package com.u2tzjtne.android.scaffold.thread;
 
+import android.os.Build;
+
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
@@ -77,7 +79,6 @@ public final class ThreadPoolManager {
     public ThreadPoolManager(final DevThreadPoolType devThreadPoolType) {
         // 初始化定时器任务
         this.mScheduleExec = Executors.newScheduledThreadPool(getThreads());
-        // =
         if (devThreadPoolType != null) {
             switch (devThreadPoolType) {
                 case SINGLE:
@@ -85,16 +86,18 @@ public final class ThreadPoolManager {
                     // 初始化定时器任务
                     this.mScheduleExec = Executors.newScheduledThreadPool(1);
                     break;
-//                case AUTO_CPU:
-//                    mThreadPool = Executors.newWorkStealingPool();
-//                    break;
-                case CALC_CPU:
-                    mThreadPool = Executors.newFixedThreadPool(getThreads());
+                case AUTO_CPU:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        mThreadPool = Executors.newWorkStealingPool();
+                    } else {
+                        mThreadPool = Executors.newFixedThreadPool(getThreads());
+                    }
                     break;
                 case CACHE:
                     mThreadPool = Executors.newCachedThreadPool();
                     break;
                 default:
+                case CALC_CPU:
                     mThreadPool = Executors.newFixedThreadPool(getThreads());
                     break;
             }
@@ -133,7 +136,6 @@ public final class ThreadPoolManager {
 //        7 ForkJoinPool: 支持大任务分解成小任务的线程池, 这是 Java8 新增线程池, 通常配合 ForkJoinTask 接口的子类 RecursiveAction 或 RecursiveTask 使用
     }
 
-    // =
 
     /**
      * 获取线程数
@@ -199,19 +201,15 @@ public final class ThreadPoolManager {
             final Object object
     ) {
         if (mThreadPool != null && method != null && object != null) {
-            mThreadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        method.invoke(object);
-                    } catch (Exception ignore) {
-                    }
+            mThreadPool.execute(() -> {
+                try {
+                    method.invoke(object);
+                } catch (Exception ignore) {
                 }
             });
         }
     }
 
-    // =
 
     /**
      * shutdown 会等待所有提交的任务执行完成, 不管是正在执行还是保存在任务队列中的已提交任务
@@ -427,7 +425,6 @@ public final class ThreadPoolManager {
         return null;
     }
 
-    // =
 
     /**
      * 延迟执行 Runnable 命令

@@ -68,10 +68,8 @@ public final class ThreadManager {
                 } else { // 其他类型, 统一转换 Integer
                     threadPoolManager = new ThreadPoolManager(Integer.parseInt((String) object));
                 }
-                if (threadPoolManager != null) {
-                    THREAD_MAPS.put(key, threadPoolManager);
-                    return threadPoolManager;
-                }
+                THREAD_MAPS.put(key, threadPoolManager);
+                return threadPoolManager;
             } catch (Exception e) {
                 return DEV_THREAD_POOL;
             }

@@ -32,9 +32,6 @@ android {
     viewBinding {
         enabled = true
     }
-    buildFeatures {
-        dataBinding true
-    }
 }
 
 dependencies {
@@ -58,7 +55,7 @@ dependencies {
     //图片加载
     api 'com.github.bumptech.glide:glide:4.12.0'
     //下载框架
-    api 'com.arialyy.aria:core:3.8.15'
+//    api 'com.arialyy.aria:core:3.8.15'
     //腾讯MMKV
     implementation 'com.tencent:mmkv-static:1.2.10'
     //二维码处理
@@ -67,7 +64,7 @@ dependencies {
     //视频缓存
     implementation 'com.danikula:videocache:2.7.1'
     //倒计时
-    api 'in.xiandan:count-down-timer:1.0.3'
+//    api 'in.xiandan:count-down-timer:1.0.3'
     //RecyclerView适配器
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
     //圆形ImageView

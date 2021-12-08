@@ -1,6 +1,5 @@
 package com.u2tzjtne.android.scaffold.util;
 
-import android.annotation.SuppressLint;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import com.u2tzjtne.android.scaffold.base.BaseApp;
 public class ToastUtils {
     private static Toast mToast;
 
-    @SuppressLint("ShowToast")
     public static void s(@NonNull String mString) {
         if (mToast == null) {
             mToast = Toast.makeText(BaseApp.getInstance(), mString, Toast.LENGTH_SHORT);
@@ -25,7 +23,6 @@ public class ToastUtils {
         mToast.show();
     }
 
-    @SuppressLint("ShowToast")
     public static void s(int messageId) {
         if (mToast == null) {
             mToast = Toast.makeText(BaseApp.getInstance(), messageId, Toast.LENGTH_SHORT);
@@ -36,7 +33,6 @@ public class ToastUtils {
         mToast.show();
     }
 
-    @SuppressLint("ShowToast")
     public static void l(@NonNull String mString) {
         if (mToast == null) {
             mToast = Toast.makeText(BaseApp.getInstance(), mString, Toast.LENGTH_LONG);
@@ -47,7 +43,6 @@ public class ToastUtils {
         mToast.show();
     }
 
-    @SuppressLint("ShowToast")
     public static void l(int messageId) {
         if (mToast == null) {
             mToast = Toast.makeText(BaseApp.getInstance(), messageId, Toast.LENGTH_LONG);
